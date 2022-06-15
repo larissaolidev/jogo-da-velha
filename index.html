@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="square"></div>
+        <div class="square"></div>
+        <div class="square"></div>
+        <div class="square"></div>
+        <div class="square"></div>
+        <div class="square"></div>
+        <div class="square"></div>
+        <div class="square"></div>
+        <div class="square"></div>
+    </div>
+
+    <button id="reset">Reset</button>
+
+    <script>
+
+        let button = document.getElementById('reset')
+        let squares = document.getElementsByClassName('square')
+        let player = 'X'
+
+
+        for (let i = 0; i < squares.length; i++) {
+            const square = squares[i];
+
+            square.addEventListener('click', function () {
+                if (player === 'X') {
+                    square.innerHTML = 'X'
+                    player = 'O'
+                } else {
+                    square.innerHTML = 'O'
+                    player = 'X'
+                }
+
+            })
+       
+            
+            button.addEventListener('click', function() {
+                square.innerHTML = ''
+                player = 'X'
+            })   
+        }
+
+
+
+
+
+    </script>
+
+    <style>
+        .square {
+            width: 150px;
+            height: 150px;
+            border: 1px solid black;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            width: 460px;
+        }
+    </style>
+
+</body>
+
+</html>

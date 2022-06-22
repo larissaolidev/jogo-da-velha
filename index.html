@@ -9,6 +9,9 @@
 </head>
 
 <body>
+    
+    <h1>Jogo da velha!</h1>
+
     <div class="container">
         <div class="square"></div>
         <div class="square"></div>
@@ -28,47 +31,97 @@
         let button = document.getElementById('reset')
         let squares = document.getElementsByClassName('square')
         let player = 'X'
+        let game = ['', '', '', '', '', '', '', '', '']
+                    
 
+        function checkWinner() {
+            if (game[0] !== '' && game[0] === game[1] && game[1] === game[2]) {
+                console.log('Parabens, voce ganhou a partida!')
+            } else if (game[3] !== '' && game[3] === game[4] && game[4] === game[5]) {
+                console.log('Parabens, voce ganhou a partida!')
+            } else if (game[6] !== '' && game[6] === game[7] && game[7] === game[8]) {
+                console.log('Parabens, voce ganhou a partida!')
+            } else if (game[0] !== '' && game[0] === game[3] && game[3] === game[6]) {
+                console.log('Parabens, voce ganhou a partida!')
+            } else if (game[1] !== '' && game[1] === game[4] && game[4] === game[7]) {
+                console.log('Parabens, voce ganhou a partida!')
+            } else if (game[2] !== '' && game[2] === game[5] && game[5] === game[8]) {
+                console.log('Parabens, voce ganhou a partida!')
+            } else if (game[0] !== '' && game[0] === game[4] && game[4 ]=== game[8]) {
+                console.log('Parabens, voce ganhou a partida!')
+            } else if (game[2] !== '' && game[2] === game[4] && game[4] === game[6]) {
+                console.log('Parabens, voce ganhou a partida!')
+            } else {
+                
+            }
+        }
+            
 
         for (let i = 0; i < squares.length; i++) {
             const square = squares[i];
 
-            square.addEventListener('click', function () {
-                if (player === 'X') {
-                    square.innerHTML = 'X'
-                    player = 'O'
-                } else {
-                    square.innerHTML = 'O'
-                    player = 'X'
-                }
+            square.addEventListener('click', function() {
+                if (square.innerHTML === '') {
+                    game[i] = player
 
+                    if (player === 'X') {
+                        square.innerHTML = 'X'
+                        player = 'O'
+                    } else {
+                        square.innerHTML = 'O'
+                        player = 'X'
+                    }
+                    checkWinner()
+                    console.log(game)
+                }
             })
-       
-            
             button.addEventListener('click', function() {
                 square.innerHTML = ''
                 player = 'X'
-            })   
+            })
         }
-
-
-
-
 
     </script>
 
     <style>
+
+        body {
+            background-color:rgb(63, 60, 60);
+            margin-top: 120px;
+        }
+
         .square {
             width: 150px;
             height: 150px;
-            border: 1px solid black;
+            border: 1px solid white;
+            font-size: 120px;
+            color: white;
+            text-align: center;
         }
 
         .container {
             display: flex;
             flex-wrap: wrap;
-            width: 460px;
+            width: 456px;
+            margin: auto;
+            color: gray;
         }
+
+        h1 {
+            display: flex;
+            margin: auto;
+            width: 200px;
+            padding: 30px;
+            color:chocolate;
+        }
+
+        #reset {
+            display: flex;
+            margin: auto;
+            margin-top: 30px;
+            padding: 5px 10px;
+        }
+
     </style>
 
 </body>

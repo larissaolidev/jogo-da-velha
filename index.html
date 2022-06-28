@@ -32,36 +32,48 @@
         let squares = document.getElementsByClassName('square')
         let player = 'X'
         let game = ['', '', '', '', '', '', '', '', '']
-                    
+        
 
         function checkWinner() {
+            console.log('vencedor')
             if (game[0] !== '' && game[0] === game[1] && game[1] === game[2]) {
                 console.log('Parabens, voce ganhou a partida!')
+                return true
             } else if (game[3] !== '' && game[3] === game[4] && game[4] === game[5]) {
                 console.log('Parabens, voce ganhou a partida!')
+                return true
             } else if (game[6] !== '' && game[6] === game[7] && game[7] === game[8]) {
                 console.log('Parabens, voce ganhou a partida!')
+                return true
             } else if (game[0] !== '' && game[0] === game[3] && game[3] === game[6]) {
                 console.log('Parabens, voce ganhou a partida!')
+                return true
             } else if (game[1] !== '' && game[1] === game[4] && game[4] === game[7]) {
                 console.log('Parabens, voce ganhou a partida!')
+                return true
             } else if (game[2] !== '' && game[2] === game[5] && game[5] === game[8]) {
                 console.log('Parabens, voce ganhou a partida!')
+                return true
             } else if (game[0] !== '' && game[0] === game[4] && game[4 ]=== game[8]) {
                 console.log('Parabens, voce ganhou a partida!')
+                return true
             } else if (game[2] !== '' && game[2] === game[4] && game[4] === game[6]) {
                 console.log('Parabens, voce ganhou a partida!')
+                return true
             } else {
-                
+                return false
             }
         }
-            
+
 
         for (let i = 0; i < squares.length; i++) {
             const square = squares[i];
 
+
             square.addEventListener('click', function() {
-                if (square.innerHTML === '') {
+                let hasWinner = checkWinner()
+
+                if (square.innerHTML === '' && !hasWinner) {
                     game[i] = player
 
                     if (player === 'X') {
@@ -71,16 +83,36 @@
                         square.innerHTML = 'O'
                         player = 'X'
                     }
-                    checkWinner()
-                    console.log(game)
+
+                    hasWinner = checkWinner()
+                    let hasEmptySpace = checkEmptySpace()
+
+                    if (!hasEmptySpace && !hasWinner) {
+                        console.log('Empate!')
+                    }
                 }
             })
+
+
             button.addEventListener('click', function() {
                 square.innerHTML = ''
+                game[i] = ''
                 player = 'X'
+                console.log('reset no codigo')
             })
         }
 
+
+        function checkEmptySpace() {
+            for (let i = 0; i < game.length; i++) {
+                if(game[i] === '') {
+                    return true
+                }    
+            }
+             
+            return false
+        }
+      
     </script>
 
     <style>
@@ -104,15 +136,14 @@
             flex-wrap: wrap;
             width: 456px;
             margin: auto;
-            color: gray;
         }
 
         h1 {
-            display: flex;
             margin: auto;
-            width: 200px;
-            padding: 30px;
+            margin-bottom: 50px;
+            width: 300px;
             color:chocolate;
+            text-align: center;
         }
 
         #reset {
@@ -127,3 +158,9 @@
 </body>
 
 </html>
+
+
+
+
+
+

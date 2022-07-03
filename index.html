@@ -17,12 +17,12 @@
     <div class="backgroundScoreboard">
         <div class="scoreboard"> PLACAR</div>
         <div class="players">
-            <p>&#128205; Jogador &#10006;:</p>
-            <p>&#128205; Jogador &Omicron;:</p>
+            <p>&#128205; Jogador &#10006;: <span class='jogadorX'>0</span></p>
+            <p>&#128205; Jogador &Omicron;: <span class='jogadorO'>0</span></p>
         </div>
     </div>
 
-    <div class="result"></div>
+    <div class="result" style="display:none;"></div>
 
     <div class="container">
         <div class="square" id="box1"></div>
@@ -44,14 +44,19 @@
         let squares = document.getElementsByClassName('square')
         let player = 'X'
         let game = ['', '', '', '', '', '', '', '', '']
+        let jogadorX = document.getElementsByClassName('jogadorX')[0]
+        let jogadorO = document.getElementsByClassName('jogadorO')[0]
+        let jog1 = 0
+        let jog2 = 0
+        let result = document.getElementsByClassName('result')[0]
+
         
         function changeColor (a, b, c) {
             squares[a].style.backgroundColor = 'rgb(231, 166, 120)'
             squares[b].style.backgroundColor = 'rgb(231, 166, 120)'
             squares[c].style.backgroundColor = 'rgb(231, 166, 120)'
-            console.log('Parabens, voce ganhou a partida!')
         }
-        
+
         function checkWinner() {
             if (game[0] !== '' && game[0] === game[1] && game[1] === game[2]) {
                 changeColor(0, 1, 2)
@@ -90,21 +95,34 @@
 
                 if (square.innerHTML === '' && !hasWinner) {
                     game[i] = player
-
-                    if (player === 'X') {
-                        square.innerHTML = 'X'
-                        player = 'O'
-                    } else {
-                        square.innerHTML = 'O'
-                        player = 'X'
-                    }
+                    square.innerHTML = player
 
                     hasWinner = checkWinner()
 
                     let hasEmptySpace = checkEmptySpace()
 
                     if (!hasEmptySpace && !hasWinner) {
-                        console.log('Empate!')
+                        result.style.display = 'block'
+                        result.innerHTML = 'Empate!'
+                    }
+
+                    if (hasWinner === true) {
+                        result.style.display = 'block'
+                        result.innerHTML = 'Parabens, o jogador' + ' ' + player + ' ' + 'venceu!'
+                        if(player === 'X'){
+                            jog1 = jog1 + 1
+                            jogadorX.innerHTML = jog1
+                        } else if(player === 'O'){
+                            jog2 = jog2 + 1
+                            jogadorO.innerHTML = jog2
+                        }
+
+                    } 
+
+                    if (player === 'X') {
+                        player = 'O'
+                    } else {
+                        player = 'X'
                     }
                 }
             })
@@ -114,7 +132,8 @@
                 game[i] = ''
                 player = 'X'
                 squares[i].style.backgroundColor = ''
-                console.log('reset no codigo')
+                result.innerHTML = ''
+                result.style.display = 'none'
             })
         }
 
@@ -193,6 +212,21 @@
             font-size: 18px;
             margin: auto;
             margin-left: 10px;
+        }
+
+        .result {
+            background: #834e2e6b;
+            width: 200px;
+            height: 180px;
+            border-radius: 10px;
+            position: absolute;
+            top: 450px;
+            right: 160px;
+            font-family: 'Amatic SC', cursive;
+            color:rgb(82, 13, 13);
+            font-weight: bold;
+            font-size: 45px;
+            text-align: center;
         }
 
         #reset {
